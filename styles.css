@@ -212,12 +212,12 @@ button:hover {
 }
 
 .table-wrap {
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 table {
   width: 100%;
-  min-width: 760px;
+  table-layout: fixed;
   border-collapse: collapse;
 }
 
@@ -229,6 +229,7 @@ td {
   vertical-align: top;
   font-size: 15px;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
 }
 
 th {
@@ -245,6 +246,10 @@ td {
 th:first-child,
 td:first-child {
   text-align: left;
+}
+
+th:first-child {
+  width: 16%;
 }
 
 .positive {
@@ -332,13 +337,50 @@ tr:last-child td {
     margin-top: 9px;
   }
 
+  .table-wrap {
+    margin: 0 -4px;
+  }
+
   table {
-    min-width: 620px;
+    table-layout: fixed;
   }
 
   th,
   td {
-    padding: 9px 8px;
-    font-size: 12px;
+    padding: 8px 3px;
+    font-size: 10px;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
+  th {
+    font-size: 9px;
+  }
+
+  th:first-child,
+  td:first-child {
+    width: 15%;
+    padding-left: 0;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .sheet-panel {
+    padding: 10px 8px;
+  }
+
+  th,
+  td {
+    padding: 7px 2px;
+    font-size: 9px;
+  }
+
+  th {
+    font-size: 8px;
   }
 }
