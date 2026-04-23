@@ -371,16 +371,46 @@ tr:last-child td {
 
 @media (max-width: 390px) {
   .sheet-panel {
-    padding: 10px 8px;
+    padding: 10px 6px;
   }
 
   th,
   td {
-    padding: 7px 2px;
-    font-size: 9px;
+    padding: 6px 1px;
+    font-size: 8px;
+    line-height: 1.15;
   }
 
   th {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 720px) {
+  #todayStoreTable th:first-child,
+  #todayStoreTable td:first-child,
+  #monthStoreTable th:first-child,
+  #monthStoreTable td:first-child {
+    width: 13%;
+  }
+
+  #todayStoreTable th,
+  #todayStoreTable td,
+  #monthStoreTable th,
+  #monthStoreTable td {
+    letter-spacing: 0;
+    word-break: keep-all;
+  }
+
+  #todayStoreTable td,
+  #monthStoreTable td {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 390px) {
+  #todayStoreTable td,
+  #monthStoreTable td {
     font-size: 8px;
   }
 }

@@ -185,6 +185,18 @@ function formatTableCell(header, value) {
   return formatNumber(value);
 }
 
+function compactHeader(header) {
+  const replacements = {
+    "達成率(%)": "達成",
+    "進捗率(%)": "進捗",
+    "進捗不足粗利": "不足",
+    "目標残額": "残額",
+    "1日目標": "目標",
+  };
+
+  return replacements[header] || header;
+}
+
 function renderTable(table, tableData) {
   const { headers, rows } = tableData;
   table.tHead.innerHTML = "";
@@ -193,7 +205,8 @@ function renderTable(table, tableData) {
   const headerRow = table.tHead.insertRow();
   headers.forEach((header) => {
     const th = document.createElement("th");
-    th.textContent = header;
+    th.textContent = compactHeader(header);
+    th.title = header;
     headerRow.append(th);
   });
 
