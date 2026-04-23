@@ -1,0 +1,344 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --text: #20242c;
+  --muted: #717987;
+  --line: #e2e5ea;
+  --soft-line: #edf0f3;
+  --accent: #d94b4b;
+  --warm: #d28a2a;
+  --good: #4e9d5a;
+  --warn: #9a3412;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  width: min(1380px, calc(100% - 24px));
+  margin: 0 auto;
+  padding: 16px 0 28px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 17px;
+}
+
+.last-updated {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 22px;
+}
+
+button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.status {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.status.error {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: var(--warn);
+}
+
+.dashboard-section,
+.sheet-panel {
+  margin-bottom: 16px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 1px 3px rgb(15 23 42 / 6%);
+}
+
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.section-title span {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.metrics {
+  display: grid;
+  gap: 12px;
+}
+
+.today-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.month-metrics {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.metric {
+  min-width: 0;
+  min-height: 100px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.metric-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.metric strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.metric small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.metric.danger strong {
+  color: var(--accent);
+}
+
+.progress {
+  height: 6px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e9ebef;
+}
+
+.progress span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 260ms ease;
+}
+
+.progress-warm span {
+  background: var(--warm);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-header span {
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--soft-line);
+  text-align: right;
+  vertical-align: top;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+th {
+  background: #fafbfc;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+td {
+  color: #2f333b;
+  font-weight: 700;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+.positive {
+  color: var(--good);
+}
+
+.negative {
+  color: var(--accent);
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .app {
+    width: min(100% - 12px, 1120px);
+    padding: 10px 0 18px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .dashboard-section,
+  .sheet-panel {
+    margin-bottom: 10px;
+    padding: 12px;
+  }
+
+  .status {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+
+  .section-title {
+    margin-bottom: 10px;
+  }
+
+  .section-title span,
+  .panel-header span {
+    font-size: 11px;
+  }
+
+  .today-metrics,
+  .month-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .metric {
+    min-height: 82px;
+    padding: 10px;
+  }
+
+  .metric-label {
+    margin-bottom: 6px;
+    font-size: 11px;
+  }
+
+  .metric strong {
+    font-size: 20px;
+  }
+
+  .metric small {
+    margin-top: 5px;
+    font-size: 10px;
+  }
+
+  .progress {
+    height: 5px;
+    margin-top: 9px;
+  }
+
+  table {
+    min-width: 620px;
+  }
+
+  th,
+  td {
+    padding: 9px 8px;
+    font-size: 12px;
+  }
+}
