@@ -13,7 +13,6 @@ const elements = {
   todayTargetBar: document.querySelector("#todayTargetBar"),
   todayProfitBar: document.querySelector("#todayProfitBar"),
   todayRemaining: document.querySelector("#todayRemaining"),
-  todayStatusChip: document.querySelector("#todayStatusChip"),
   monthTarget: document.querySelector("#monthTarget"),
   monthTargetBar: document.querySelector("#monthTargetBar"),
   monthProfit: document.querySelector("#monthProfit"),
@@ -23,9 +22,7 @@ const elements = {
   monthProgress: document.querySelector("#monthProgress"),
   monthProgressBar: document.querySelector("#monthProgressBar"),
   monthShortage: document.querySelector("#monthShortage"),
-  monthShortageChip: document.querySelector("#monthShortageChip"),
   monthRemaining: document.querySelector("#monthRemaining"),
-  businessDays: document.querySelector("#businessDays"),
   todayStoreCount: document.querySelector("#todayStoreCount"),
   monthStoreCount: document.querySelector("#monthStoreCount"),
   todayStoreTable: document.querySelector("#todayStoreTable"),
@@ -189,12 +186,6 @@ function renderMetrics(rows) {
     );
   }
   if (elements.todayRateBar) elements.todayRateBar.style.width = progressWidth(getCell(today, "達成率(%)"));
-  if (elements.todayStatusChip) {
-    const todayRate = toNumber(getCell(today, "達成率(%)"));
-    elements.todayStatusChip.textContent = todayRate >= 100 ? "達成圏" : "追い込み";
-    elements.todayStatusChip.className = `metric-chip ${todayRate >= 100 ? "good" : "warn"}`;
-  }
-
   setText(elements.monthTarget, getCell(month, "今月の粗利目標"), formatNumber);
   setText(elements.monthProfit, getCell(month, "現在の月粗利"), formatNumber);
   setText(elements.monthRate, getCell(month, "達成率(%)"), formatPercent);
@@ -211,14 +202,6 @@ function renderMetrics(rows) {
   if (elements.monthRateBar) elements.monthRateBar.style.width = progressWidth(getCell(month, "達成率(%)"));
   if (elements.monthProgressBar) {
     elements.monthProgressBar.style.width = progressWidth(getCell(month, "進捗率(%)"));
-  }
-  if (elements.monthShortageChip) {
-    const shortage = toNumber(getCell(month, "進捗不足粗利"));
-    elements.monthShortageChip.textContent = shortage > 0 ? "要キャッチアップ" : "順調";
-    elements.monthShortageChip.className = `metric-chip ${shortage > 0 ? "warn" : "good"}`;
-  }
-  if (elements.businessDays) {
-    elements.businessDays.textContent = `総営業 ${getCell(month, "総営業日") || "--"}日 / 通算営業 ${getCell(month, "通算営業日") || "--"}日`;
   }
 }
 
