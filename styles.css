@@ -204,14 +204,16 @@ button:hover {
   color: var(--muted);
   font-size: 13px;
   font-weight: 700;
+  line-height: 1.35;
 }
 
 .metric strong {
   display: block;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
   color: var(--text);
   font-size: 26px;
   line-height: 1.1;
+  font-variant-numeric: tabular-nums;
 }
 
 .metric.danger strong {
@@ -416,20 +418,25 @@ tr:last-child td {
 @media (max-width: 720px) {
   .app {
     width: min(100% - 12px, 1120px);
-    padding: 10px 0 18px;
+    padding: 8px 0 16px;
   }
 
   .topbar {
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
 
   .topbar-actions {
     width: 100%;
     justify-content: space-between;
+    align-items: center;
   }
 
   h1 {
-    font-size: 20px;
+    max-width: 7ch;
+    font-size: 19px;
+    line-height: 1.08;
   }
 
   h2 {
@@ -442,11 +449,14 @@ tr:last-child td {
   }
 
   .page-nav {
+    flex: 1;
     gap: 4px;
     padding: 3px;
   }
 
   .page-link {
+    flex: 1;
+    text-align: center;
     padding: 7px 10px;
     font-size: 11px;
   }
@@ -454,7 +464,7 @@ tr:last-child td {
   .dashboard-section,
   .sheet-panel {
     margin-bottom: 10px;
-    padding: 12px;
+    padding: 12px 10px;
   }
 
   .status {
@@ -463,6 +473,8 @@ tr:last-child td {
   }
 
   .section-title {
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 10px;
   }
 
@@ -473,15 +485,8 @@ tr:last-child td {
 
   .today-metrics,
   .month-metrics {
-    gap: 8px 10px;
-  }
-
-  .today-metrics {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .month-metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .metric {
@@ -490,7 +495,8 @@ tr:last-child td {
   }
 
   .metric-emphasis {
-    padding: 9px 10px;
+    min-height: 96px;
+    padding: 10px 10px 9px;
   }
 
   .metric-label {
@@ -499,7 +505,8 @@ tr:last-child td {
   }
 
   .metric strong {
-    font-size: 16px;
+    font-size: 15px;
+    letter-spacing: 0;
   }
 
   .metric-meter {
@@ -513,6 +520,11 @@ tr:last-child td {
     margin-top: 7px;
     padding: 0 8px;
     font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .metric-note {
+    white-space: normal;
   }
 
   .table-wrap {
@@ -609,6 +621,39 @@ tr:last-child td {
 }
 
 @media (max-width: 390px) {
+  .topbar-actions {
+    gap: 8px;
+  }
+
+  button {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .page-link {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+
+  .dashboard-section,
+  .sheet-panel {
+    padding: 10px 8px;
+  }
+
+  .metric-emphasis {
+    min-height: 90px;
+    padding: 9px 8px 8px;
+  }
+
+  .metric-label {
+    font-size: 9px;
+  }
+
+  .metric strong {
+    font-size: 13px;
+  }
+
   #todayStoreTable td,
   #monthStoreTable td {
     font-size: 8px;

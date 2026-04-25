@@ -166,6 +166,7 @@ function getTableBlock(rows, marker) {
 }
 
 function setText(element, value, formatter = (currentValue) => currentValue || "--") {
+  if (!element) return;
   element.textContent = formatter(value);
 }
 
@@ -173,8 +174,8 @@ function renderMetrics(rows) {
   const today = getKeyValueBlock(rows, "■ 本日");
   const month = getKeyValueBlock(rows, "■ 今月");
 
-  elements.todayPeriod.textContent = getPeriod(rows, "■ 本日");
-  elements.monthPeriod.textContent = getPeriod(rows, "■ 今月");
+  if (elements.todayPeriod) elements.todayPeriod.textContent = getPeriod(rows, "■ 本日");
+  if (elements.monthPeriod) elements.monthPeriod.textContent = getPeriod(rows, "■ 今月");
 
   setText(elements.todayTarget, getCell(today, "今日の粗利目標"), formatNumber);
   setText(elements.todayProfit, getCell(today, "現在の1日粗利"), formatNumber);
@@ -345,9 +346,9 @@ async function loadSheet() {
     renderTable(elements.monthStoreTable, monthStores);
     renderStoreCards(elements.todayStoreCards, todayStores, "today");
     renderStoreCards(elements.monthStoreCards, monthStores, "month");
-    elements.todayStoreCount.textContent = `${todayStores.rows.length}店舗`;
-    elements.monthStoreCount.textContent = `${monthStores.rows.length}店舗`;
-    elements.sheetUpdatedAt.textContent = getCell(rows, "最終更新日時") || "--";
+    if (elements.todayStoreCount) elements.todayStoreCount.textContent = `${todayStores.rows.length}店舗`;
+    if (elements.monthStoreCount) elements.monthStoreCount.textContent = `${monthStores.rows.length}店舗`;
+    if (elements.sheetUpdatedAt) elements.sheetUpdatedAt.textContent = getCell(rows, "最終更新日時") || "--";
     setStatus("取得しました。");
   } catch (error) {
     setStatus(
