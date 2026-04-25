@@ -9,17 +9,29 @@ const elements = {
   todayTarget: document.querySelector("#todayTarget"),
   todayProfit: document.querySelector("#todayProfit"),
   todayRate: document.querySelector("#todayRate"),
+  todayRateBar: document.querySelector("#todayRateBar"),
+  todayTargetBar: document.querySelector("#todayTargetBar"),
+  todayProfitBar: document.querySelector("#todayProfitBar"),
   todayRemaining: document.querySelector("#todayRemaining"),
+  todayStatusChip: document.querySelector("#todayStatusChip"),
   monthTarget: document.querySelector("#monthTarget"),
+  monthTargetBar: document.querySelector("#monthTargetBar"),
   monthProfit: document.querySelector("#monthProfit"),
+  monthProfitBar: document.querySelector("#monthProfitBar"),
   monthRate: document.querySelector("#monthRate"),
+  monthRateBar: document.querySelector("#monthRateBar"),
   monthProgress: document.querySelector("#monthProgress"),
+  monthProgressBar: document.querySelector("#monthProgressBar"),
   monthShortage: document.querySelector("#monthShortage"),
+  monthShortageChip: document.querySelector("#monthShortageChip"),
   monthRemaining: document.querySelector("#monthRemaining"),
+  businessDays: document.querySelector("#businessDays"),
   todayStoreCount: document.querySelector("#todayStoreCount"),
   monthStoreCount: document.querySelector("#monthStoreCount"),
   todayStoreTable: document.querySelector("#todayStoreTable"),
   monthStoreTable: document.querySelector("#monthStoreTable"),
+  todayStoreCards: document.querySelector("#todayStoreCards"),
+  monthStoreCards: document.querySelector("#monthStoreCards"),
   refreshButton: document.querySelector("#refreshButton"),
 };
 
@@ -99,6 +111,13 @@ function progressWidth(value) {
   return `${Math.max(0, Math.min(number, 100))}%`;
 }
 
+function ratioWidth(current, total) {
+  const currentNumber = toNumber(current);
+  const totalNumber = toNumber(total);
+  if (!totalNumber || Number.isNaN(currentNumber) || Number.isNaN(totalNumber)) return "0%";
+  return `${Math.max(0, Math.min((currentNumber / totalNumber) * 100, 100))}%`;
+}
+
 function getCell(rows, label, valueIndex = 1) {
   const target = normalize(label);
   const row = rows.find((currentRow) => normalize(currentRow[0]) === target);
@@ -161,6 +180,19 @@ function renderMetrics(rows) {
   setText(elements.todayProfit, getCell(today, "現在の1日粗利"), formatNumber);
   setText(elements.todayRate, getCell(today, "達成率(%)"), formatPercent);
   setText(elements.todayRemaining, getCell(today, "目標残額"), formatNumber);
+  if (elements.todayTargetBar) elements.todayTargetBar.style.width = "100%";
+  if (elements.todayProfitBar) {
+    elements.todayProfitBar.style.width = ratioWidth(
+      getCell(today, "現在の1日粗利"),
+      getCell(today, "今日の粗利目標"),
+    );
+  }
+  if (elements.todayRateBar) elements.todayRateBar.style.width = progressWidth(getCell(today, "達成率(%)"));
+  if (elements.todayStatusChip) {
+    const todayRate = toNumber(getCell(today, "達成率(%)"));
+    elements.todayStatusChip.textContent = todayRate >= 100 ? "達成圏" : "追い込み";
+    elements.todayStatusChip.className = `metric-chip ${todayRate >= 100 ? "good" : "warn"}`;
+  }
 
   setText(elements.monthTarget, getCell(month, "今月の粗利目標"), formatNumber);
   setText(elements.monthProfit, getCell(month, "現在の月粗利"), formatNumber);
@@ -168,6 +200,25 @@ function renderMetrics(rows) {
   setText(elements.monthProgress, getCell(month, "進捗率(%)"), formatPercent);
   setText(elements.monthShortage, getCell(month, "進捗不足粗利"), formatNumber);
   setText(elements.monthRemaining, getCell(month, "目標残額"), formatNumber);
+  if (elements.monthTargetBar) elements.monthTargetBar.style.width = "100%";
+  if (elements.monthProfitBar) {
+    elements.monthProfitBar.style.width = ratioWidth(
+      getCell(month, "現在の月粗利"),
+      getCell(month, "今月の粗利目標"),
+    );
+  }
+  if (elements.monthRateBar) elements.monthRateBar.style.width = progressWidth(getCell(month, "達成率(%)"));
+  if (elements.monthProgressBar) {
+    elements.monthProgressBar.style.width = progressWidth(getCell(month, "進捗率(%)"));
+  }
+  if (elements.monthShortageChip) {
+    const shortage = toNumber(getCell(month, "進捗不足粗利"));
+    elements.monthShortageChip.textContent = shortage > 0 ? "要キャッチアップ" : "順調";
+    elements.monthShortageChip.className = `metric-chip ${shortage > 0 ? "warn" : "good"}`;
+  }
+  if (elements.businessDays) {
+    elements.businessDays.textContent = `総営業 ${getCell(month, "総営業日") || "--"}日 / 通算営業 ${getCell(month, "通算営業日") || "--"}日`;
+  }
 }
 
 function formatTableCell(header, value) {
@@ -190,6 +241,7 @@ function compactHeader(header) {
 }
 
 function renderTable(table, tableData) {
+  if (!table) return;
   const { headers, rows } = tableData;
   table.tHead.innerHTML = "";
   table.tBodies[0].innerHTML = "";
@@ -221,6 +273,50 @@ function renderTable(table, tableData) {
   });
 }
 
+function getBadgeClass(value, header = "") {
+  const numericValue = toNumber(value);
+  if (header.includes("率")) return numericValue >= 100 ? "good" : "warn";
+  if (header.includes("不足") || header.includes("残額")) return numericValue <= 0 ? "good" : "warn";
+  return "";
+}
+
+function renderStoreCards(container, tableData, mode) {
+  if (!container) return;
+  container.innerHTML = "";
+  const { headers, rows } = tableData;
+  rows.forEach((row) => {
+    const storeName = row[0] || "--";
+    const badgeIndex = headers.findIndex((header) => header.includes("達成率"));
+    const badgeValue = badgeIndex >= 0 ? formatTableCell(headers[badgeIndex], row[badgeIndex]) : "--";
+    const badgeClass = badgeIndex >= 0 ? getBadgeClass(row[badgeIndex], headers[badgeIndex]) : "";
+    const detailHeaders =
+      mode === "today"
+        ? ["売上", "粗利", "1日目標", "目標残額"]
+        : ["粗利", "目標", "進捗率(%)", "進捗不足粗利"];
+
+    const detailMarkup = detailHeaders
+      .filter((header) => headers.includes(header))
+      .map((header) => {
+        const index = headers.indexOf(header);
+        const value = formatTableCell(header, row[index]);
+        const tone = getBadgeClass(row[index], header);
+        return `<div><span class="store-stat-label">${compactHeader(header)}</span><div class="store-stat-value ${tone === "warn" ? "negative" : tone === "good" ? "positive" : ""}">${value}</div></div>`;
+      })
+      .join("");
+
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<article class="store-card">
+        <div class="store-card-head">
+          <h3>${storeName}</h3>
+          <span class="store-badge ${badgeClass}">${badgeValue}</span>
+        </div>
+        <div class="store-stats">${detailMarkup}</div>
+      </article>`,
+    );
+  });
+}
+
 function setStatus(message, isError = false) {
   elements.status.textContent = message;
   elements.status.classList.toggle("error", isError);
@@ -247,6 +343,8 @@ async function loadSheet() {
     const monthStores = getTableBlock(rows, "店舗別(今月)");
     renderTable(elements.todayStoreTable, todayStores);
     renderTable(elements.monthStoreTable, monthStores);
+    renderStoreCards(elements.todayStoreCards, todayStores, "today");
+    renderStoreCards(elements.monthStoreCards, monthStores, "month");
     elements.todayStoreCount.textContent = `${todayStores.rows.length}店舗`;
     elements.monthStoreCount.textContent = `${monthStores.rows.length}店舗`;
     elements.sheetUpdatedAt.textContent = getCell(rows, "最終更新日時") || "--";

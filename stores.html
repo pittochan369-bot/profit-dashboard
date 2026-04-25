@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>店舗別詳細 | 粗利ダッシュボード</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app detail-app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">@pocket</p>
+          <h1>店舗別詳細</h1>
+          <p class="last-updated">シート更新: <span id="sheetUpdatedAt">--</span></p>
+        </div>
+        <div class="topbar-actions">
+          <nav class="page-nav" aria-label="ページ">
+            <a class="page-link" href="./index.html">概要</a>
+            <a class="page-link current" href="./stores.html">店舗別詳細</a>
+          </nav>
+          <button id="refreshButton" type="button" aria-label="更新">
+            <span aria-hidden="true">↻</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="status" id="status" role="status">読み込み準備中...</section>
+
+      <section class="sheet-panel" id="today-detail">
+        <div class="panel-header">
+          <h2>店舗別（本日）</h2>
+          <span id="todayStoreCount">--</span>
+        </div>
+        <div class="store-card-grid" id="todayStoreCards"></div>
+        <div class="table-wrap detail-table-wrap">
+          <table id="todayStoreTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="sheet-panel" id="month-detail">
+        <div class="panel-header">
+          <h2>店舗別（今月）</h2>
+          <span id="monthStoreCount">--</span>
+        </div>
+        <div class="store-card-grid" id="monthStoreCards"></div>
+        <div class="table-wrap detail-table-wrap">
+          <table id="monthStoreTable">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

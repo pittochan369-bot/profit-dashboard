@@ -14,9 +14,15 @@
           <h1>粗利ダッシュボード</h1>
           <p class="last-updated">シート更新: <span id="sheetUpdatedAt">--</span></p>
         </div>
-        <button id="refreshButton" type="button" aria-label="更新">
-          <span aria-hidden="true">↻</span>
-        </button>
+        <div class="topbar-actions">
+          <nav class="page-nav" aria-label="ページ">
+            <a class="page-link current" href="./index.html">概要</a>
+            <a class="page-link" href="./stores.html">店舗別詳細</a>
+          </nav>
+          <button id="refreshButton" type="button" aria-label="更新">
+            <span aria-hidden="true">↻</span>
+          </button>
+        </div>
       </header>
 
       <section class="status" id="status" role="status">読み込み準備中...</section>
@@ -27,21 +33,25 @@
           <span id="todayPeriod">--</span>
         </div>
         <div class="metrics metrics-inline today-metrics" aria-label="本日の主要データ">
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">今日の粗利目標</span>
             <strong id="todayTarget">--</strong>
+            <div class="metric-meter subtle"><span id="todayTargetBar"></span></div>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">現在の1日粗利</span>
             <strong id="todayProfit">--</strong>
+            <div class="metric-meter"><span id="todayProfitBar"></span></div>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">達成率</span>
             <strong id="todayRate">--</strong>
+            <div class="metric-meter"><span id="todayRateBar"></span></div>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">目標残額</span>
             <strong id="todayRemaining">--</strong>
+            <span class="metric-chip" id="todayStatusChip">--</span>
           </article>
         </div>
       </section>
@@ -52,29 +62,35 @@
           <span id="monthPeriod">--</span>
         </div>
         <div class="metrics metrics-inline month-metrics" aria-label="今月の主要データ">
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">今月の粗利目標</span>
             <strong id="monthTarget">--</strong>
+            <div class="metric-meter subtle"><span id="monthTargetBar"></span></div>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">現在の月粗利</span>
             <strong id="monthProfit">--</strong>
+            <div class="metric-meter"><span id="monthProfitBar"></span></div>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">達成率</span>
             <strong id="monthRate">--</strong>
+            <div class="metric-meter"><span id="monthRateBar"></span></div>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">進捗率</span>
             <strong id="monthProgress">--</strong>
+            <div class="metric-meter warm"><span id="monthProgressBar"></span></div>
           </article>
           <article class="metric metric-inline danger">
             <span class="metric-label">進捗不足粗利</span>
             <strong id="monthShortage">--</strong>
+            <span class="metric-chip" id="monthShortageChip">--</span>
           </article>
-          <article class="metric metric-inline">
+          <article class="metric metric-inline metric-emphasis">
             <span class="metric-label">目標残額</span>
             <strong id="monthRemaining">--</strong>
+            <span class="metric-note" id="businessDays">--</span>
           </article>
         </div>
       </section>
@@ -82,7 +98,7 @@
       <section class="sheet-panel">
         <div class="panel-header">
           <h2>店舗別（本日）</h2>
-          <span id="todayStoreCount">--</span>
+          <a class="detail-link" href="./stores.html#today-detail">詳細へ</a>
         </div>
         <div class="table-wrap">
           <table id="todayStoreTable">
@@ -95,7 +111,7 @@
       <section class="sheet-panel">
         <div class="panel-header">
           <h2>店舗別（今月）</h2>
-          <span id="monthStoreCount">--</span>
+          <a class="detail-link" href="./stores.html#month-detail">詳細へ</a>
         </div>
         <div class="table-wrap">
           <table id="monthStoreTable">
