@@ -9,17 +9,13 @@ const elements = {
   todayTarget: document.querySelector("#todayTarget"),
   todayProfit: document.querySelector("#todayProfit"),
   todayRate: document.querySelector("#todayRate"),
-  todayRateBar: document.querySelector("#todayRateBar"),
   todayRemaining: document.querySelector("#todayRemaining"),
   monthTarget: document.querySelector("#monthTarget"),
   monthProfit: document.querySelector("#monthProfit"),
   monthRate: document.querySelector("#monthRate"),
-  monthRateBar: document.querySelector("#monthRateBar"),
   monthProgress: document.querySelector("#monthProgress"),
-  monthProgressBar: document.querySelector("#monthProgressBar"),
   monthShortage: document.querySelector("#monthShortage"),
   monthRemaining: document.querySelector("#monthRemaining"),
-  businessDays: document.querySelector("#businessDays"),
   todayStoreCount: document.querySelector("#todayStoreCount"),
   monthStoreCount: document.querySelector("#monthStoreCount"),
   todayStoreTable: document.querySelector("#todayStoreTable"),
@@ -165,7 +161,6 @@ function renderMetrics(rows) {
   setText(elements.todayProfit, getCell(today, "現在の1日粗利"), formatNumber);
   setText(elements.todayRate, getCell(today, "達成率(%)"), formatPercent);
   setText(elements.todayRemaining, getCell(today, "目標残額"), formatNumber);
-  elements.todayRateBar.style.width = progressWidth(getCell(today, "達成率(%)"));
 
   setText(elements.monthTarget, getCell(month, "今月の粗利目標"), formatNumber);
   setText(elements.monthProfit, getCell(month, "現在の月粗利"), formatNumber);
@@ -173,9 +168,6 @@ function renderMetrics(rows) {
   setText(elements.monthProgress, getCell(month, "進捗率(%)"), formatPercent);
   setText(elements.monthShortage, getCell(month, "進捗不足粗利"), formatNumber);
   setText(elements.monthRemaining, getCell(month, "目標残額"), formatNumber);
-  elements.monthRateBar.style.width = progressWidth(getCell(month, "達成率(%)"));
-  elements.monthProgressBar.style.width = progressWidth(getCell(month, "進捗率(%)"));
-  elements.businessDays.textContent = `総営業 ${getCell(month, "総営業日") || "--"}日 / 通算営業 ${getCell(month, "通算営業日") || "--"}日`;
 }
 
 function formatTableCell(header, value) {

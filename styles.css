@@ -135,7 +135,7 @@ button:hover {
 }
 
 .month-metrics {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .metric {
@@ -145,6 +145,17 @@ button:hover {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
+}
+
+.metrics-inline {
+  gap: 12px 18px;
+}
+
+.metric-inline {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .metric-label {
@@ -163,37 +174,8 @@ button:hover {
   line-height: 1.1;
 }
 
-.metric small {
-  display: block;
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
 .metric.danger strong {
   color: var(--accent);
-}
-
-.progress {
-  height: 6px;
-  margin-top: 14px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #e9ebef;
-}
-
-.progress span {
-  display: block;
-  width: 0%;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--accent);
-  transition: width 260ms ease;
-}
-
-.progress-warm span {
-  background: var(--warm);
 }
 
 .panel-header {
@@ -309,32 +291,29 @@ tr:last-child td {
 
   .today-metrics,
   .month-metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 8px 10px;
+  }
+
+  .today-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .month-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .metric {
-    min-height: 82px;
-    padding: 10px;
+    min-height: 0;
+    padding: 0;
   }
 
   .metric-label {
-    margin-bottom: 6px;
-    font-size: 11px;
-  }
-
-  .metric strong {
-    font-size: 20px;
-  }
-
-  .metric small {
-    margin-top: 5px;
+    margin-bottom: 4px;
     font-size: 10px;
   }
 
-  .progress {
-    height: 5px;
-    margin-top: 9px;
+  .metric strong {
+    font-size: 16px;
   }
 
   .table-wrap {
