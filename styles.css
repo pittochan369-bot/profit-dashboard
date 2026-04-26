@@ -473,8 +473,8 @@ tr:last-child td {
   }
 
   .metric-emphasis {
-    min-height: 84px;
-    padding: 8px 9px 7px;
+    min-height: 80px;
+    padding: 7px 8px 6px;
   }
 
   .metric-label {
@@ -483,13 +483,13 @@ tr:last-child td {
   }
 
   .metric strong {
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0;
   }
 
   .metric-meter {
     height: 5px;
-    margin-top: 6px;
+    margin-top: 5px;
   }
 
   .table-wrap {
@@ -607,8 +607,8 @@ tr:last-child td {
   }
 
   .metric-emphasis {
-    min-height: 78px;
-    padding: 7px 8px 6px;
+    min-height: 74px;
+    padding: 6px 7px 5px;
   }
 
   .metric-label {
@@ -616,7 +616,7 @@ tr:last-child td {
   }
 
   .metric strong {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   #todayStoreTable td,
