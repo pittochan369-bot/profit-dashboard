@@ -563,25 +563,25 @@ tr:last-child td {
   }
 
   .store-card-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     margin: 12px 0 14px;
   }
 
   .store-card {
-    padding: 12px;
+    padding: 10px;
   }
 
   .store-card h3 {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .store-stat-label {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .store-stat-value {
-    font-size: 15px;
+    font-size: 13px;
   }
 }
 
@@ -616,6 +616,41 @@ tr:last-child td {
   }
 
   .metric strong {
+    font-size: 11px;
+  }
+
+  .store-card-grid {
+    gap: 6px;
+  }
+
+  .store-card {
+    padding: 8px;
+  }
+
+  .store-card-head {
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .store-card h3 {
+    font-size: 12px;
+  }
+
+  .store-badge {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .store-stats {
+    gap: 8px 10px;
+  }
+
+  .store-stat-label {
+    margin-bottom: 3px;
+    font-size: 8px;
+  }
+
+  .store-stat-value {
     font-size: 11px;
   }
 
